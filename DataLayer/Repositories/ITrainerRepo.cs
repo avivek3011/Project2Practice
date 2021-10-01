@@ -15,6 +15,12 @@ namespace DataLayer.Repositories
         Trainer Login(Trainer trainer);
         Trainer Display(int id);
 
-        
+        void AddSkill(Skill skill);
+
+        int GetExp(int id);
+
+        string GetQualification(int id);
+
+
     }
 }

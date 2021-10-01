@@ -32,7 +32,7 @@ namespace DataLayer.Repositories
         {
                 if (id != 0)
                 {
-                    return db.trainer.Where(s => s.Id == id).FirstOrDefault();
+                    return db.trainer.Include("Skill").Where(s => s.Id == id).FirstOrDefault();
                 }
                 else
                     return null;
@@ -60,5 +60,19 @@ namespace DataLayer.Repositories
         //    }
 
         //}
+
+        public void AddSkill(Skill skill)
+        {
+            db.Add(skill);
+            db.SaveChanges();
+        }
+        public int GetExp(int id)
+        {
+            return db.trainerdetails.Where(s => s.Trainer_Id == id).FirstOrDefault().Experience;
+        }
+        public string GetQualification(int id)
+        {
+            return db.trainerdetails.Where(s => s.Trainer_Id == id).FirstOrDefault().Qualification;
+        }
     }
 }
