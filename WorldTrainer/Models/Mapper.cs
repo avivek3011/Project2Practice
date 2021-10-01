@@ -34,6 +34,7 @@ namespace WorldTrainer.Models
                 contact = trainer.Contact,
                 email = trainer.Email,
                 gender = trainer.Gender,
+                skill= (Map(trainer.Skill).ToList() == null) ? null : Map(trainer.Skill).ToList()
             };
         }
 
@@ -56,7 +57,27 @@ namespace WorldTrainer.Models
                 Password = trainer.password
             };
         }
+        public static DataLayer.Entities.Skill MapSkill(Models.SkillModel skill, int id)
+        {
+            return new DataLayer.Entities.Skill()
+            {
 
+                Skills = skill.skill,
+                Trainer_Id = id
+            };
+
+        }
+        public static Models.SkillModel MapSkill(DataLayer.Entities.Skill skill)
+        {
+            return new Models.SkillModel()
+            {
+                id = skill.Id,
+                skill = skill.Skills,
+                trainerid = skill.Trainer.Id
+            };
+
+        }
+        public static IEnumerable<Models.SkillModel> Map(IEnumerable<DataLayer.Entities.Skill> skill) => skill.Select(MapSkill);
         public static IEnumerable<Models.TrainerModel> Map(IEnumerable<DataLayer.Entities.Trainer> trainer) => trainer.Select(Map);
     }
 }

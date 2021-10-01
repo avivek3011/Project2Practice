@@ -34,5 +34,7 @@ namespace WorldTrainer.Models
 
         [Required(ErrorMessage = "Please enter Qualification")]
         public string qualification { get; set; }
+
+        public List<SkillModel> skill { get; set; }
     }
 }

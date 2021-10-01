@@ -90,6 +90,8 @@ namespace WorldTrainer.Controllers
         {
             var id = HttpContext.Session.GetString(TrainerId);
             int Uid = Convert.ToInt32(id);
+            ViewBag.experience = repo.GetExp(Uid);
+            ViewBag.qualification = repo.GetQualification(Uid);
             var data = Mapper.Map(repo.Display(Uid));
             return View(data);
         }
@@ -135,6 +137,21 @@ namespace WorldTrainer.Controllers
             {
                 return View();
             }
+        }
+
+
+
+        public IActionResult AddSkill()
+        {
+            return View();
+        }
+        [HttpPost]
+        public IActionResult AddSkill(SkillModel skills)
+        {
+            var id = HttpContext.Session.GetString(TrainerId);
+            int Uid = Convert.ToInt32(id);
+            repo.AddSkill(Mapper.MapSkill(skills, Uid));
+            return RedirectToAction("Display", "Trainer");
         }
     }
 }
